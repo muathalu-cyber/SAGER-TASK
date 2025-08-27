@@ -129,7 +129,7 @@ export function MapboxMap({ drones, flightPaths, selectedDroneId, onDroneSelecte
 
   return (
     <div className={`relative ${className}`}>
-      <div ref={containerRef} className="w-full h-full" data-testid="mapbox-container" />
+      <div ref={containerRef} className="w-full h-[100vh]" data-testid="mapbox-container" />
       
       {/* Map Controls Overlay */}
       <div className="absolute top-4 right-4 space-y-3 z-20">
