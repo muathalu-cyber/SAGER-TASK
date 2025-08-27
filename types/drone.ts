@@ -33,7 +33,7 @@ export interface MapSettings {
 }
 
 export function isDroneAllowed(registration: string): boolean {
-  return registration.toUpperCase().includes('-B');
+  return registration;
 }
 
 export function formatFlightTime(seconds: number): string {
