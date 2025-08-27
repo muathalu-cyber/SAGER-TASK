@@ -154,7 +154,7 @@ export default function Dashboard() {
         </header>
 
         <main className="flex-1 bg-muted relative overflow-hidden">
-        
+        <MapboxMap />
         </main>
 
         <aside className="absolute bottom-6 right-6 bg-destructive text-destructive-foreground px-6 py-4 rounded-xl shadow-lg border border-destructive/20">
