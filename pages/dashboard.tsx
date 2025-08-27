@@ -12,7 +12,7 @@ export default function Dashboard() {
     drones,
     allDrones,
     flightPaths,
-    flightPaths,
+    filter,
     selectedDroneId,
     isConnected,
     lastUpdate,
