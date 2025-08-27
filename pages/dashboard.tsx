@@ -155,7 +155,12 @@ export default function Dashboard() {
         </header>
 
         <main className="flex-1 bg-muted relative overflow-hidden">
-        <MapboxMap />
+        <MapboxMap 
+          drones={mapDrones}
+          flightPaths={flightPathsMap}
+          selectedDroneId={selectedDroneId}
+          onDroneSelected={handleDroneSelected}
+        />
         </main>
 
         <aside className="absolute bottom-6 right-6 bg-destructive text-destructive-foreground px-6 py-4 rounded-xl shadow-lg border border-destructive/20">
