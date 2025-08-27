@@ -60,7 +60,7 @@ export default function Dashboard() {
 
         {/* Map Container */}
         <MapboxMap
-          drones={allDrones}
+          drones={drons}
           flightPaths={flightPaths}
           selectedDroneId={selectedDroneId}
           onDroneSelected={handleDroneSelected}
