@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { DroneData, FlightPathPoint, DroneFilter, isDroneAllowed } from '@/types/drone';
+import { DroneData, FlightPathPoint, DroneFilter, isDroneAllowed } from '../types/drone';
 import { useWebSocket } from './use-websocket';
 
 interface DroneStore {
