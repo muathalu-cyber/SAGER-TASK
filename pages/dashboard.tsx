@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useDroneStore } from '../hooks/use-drone-store';
-import { MapboxMap } from '@/components/mapbox-map';
-import { DroneListSidebar } from '@/components/drone-list-sidebar';
-import { TopBar } from '@/components/top-bar';
-import { DroneCounter } from '@/components/drone-counter';
+import { MapboxMap } from '../components/mapbox-map';
+import { DroneListSidebar } from '../components/drone-list-sidebar';
+import { TopBar } from '../components/top-bar';
+import { DroneCounter } from '../components/drone-counter';
 
 export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
