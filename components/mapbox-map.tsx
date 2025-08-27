@@ -10,7 +10,7 @@ import React from 'react';
 
 interface MapboxMapProps {
   drones: DroneData[];
-  flightPaths: Map<string, any[]>;
+  flightPaths: any;
   selectedDroneId: string | null;
   onDroneSelected: (droneId: string) => void;
   className?: string;
