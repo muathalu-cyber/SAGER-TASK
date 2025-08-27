@@ -1,5 +1,5 @@
 import mapboxgl from "mapbox-gl";
-import { DroneData, FlightPathPoint, isDroneAllowed } from "@/types/drone";
+import { DroneData, FlightPathPoint, isDroneAllowed } from "../types/drone";
 
 // Use environment variable or fallback to demo token
 const MAPBOX_ACCESS_TOKEN =
