@@ -48,7 +48,7 @@ export function MapboxMap({ drones, flightPaths, selectedDroneId, onDroneSelecte
   useEffect(() => {
     if (!mapRef.current) return;
 
-    drones.forEach(drone => {
+    drones?.map(drone => {
       mapRef.current!.updateDroneMarker(drone);
     });
   }, [drones]);
