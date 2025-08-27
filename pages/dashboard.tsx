@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDroneStore } from '@/hooks/use-drone-store';
+import { useDroneStore } from '../hooks/use-drone-store';
 import { MapboxMap } from '@/components/mapbox-map';
 import { DroneListSidebar } from '@/components/drone-list-sidebar';
 import { TopBar } from '@/components/top-bar';
