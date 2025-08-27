@@ -1,9 +1,12 @@
-import mapboxgl from 'mapbox-gl';
-import { type DroneData, type FlightPathPoint, isDroneAllowed } from '../types/drone';
+import mapboxgl from "mapbox-gl";
+import { DroneData, FlightPathPoint, isDroneAllowed } from "@/types/drone";
 
 // Use environment variable or fallback to demo token
+const MAPBOX_ACCESS_TOKEN =
+  import.meta.env.VITE_MAPBOX_ACCESS_TOKEN ||
+  "pk.eyJ1IjoibXluZXd3MDAiLCJhIjoiY21lc3V5Nnp0MDZndjJqczRkdjJ2NGlpOCJ9.wF4YelXlLVj7Ead9dGf2rQ";
 
-mapboxgl.accessToken = "pk.eyJ1IjoibXluZXd3MDAiLCJhIjoiY21lc3V5Nnp0MDZndjJqczRkdjJ2NGlpOCJ9.wF4YelXlLVj7Ead9dGf2rQ";
+mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
 export interface MapboxMapManager {
   map: mapboxgl.Map;
@@ -17,10 +20,12 @@ export interface MapboxMapManager {
   destroy: () => void;
 }
 
-export function createMapboxMap(container: string | HTMLElement): MapboxMapManager {
+export function createMapboxMap(
+  container: string | HTMLElement,
+): MapboxMapManager {
   const map = new mapboxgl.Map({
     container,
-    style: 'mapbox://styles/mapbox/satellite-v9',
+    style: "mapbox://styles/mapbox/satellite-v9",
     center: [-122.4194, 37.7749], // San Francisco
     zoom: 12,
     pitch: 0,
@@ -32,90 +37,92 @@ export function createMapboxMap(container: string | HTMLElement): MapboxMapManag
   let activePopup: mapboxgl.Popup | null = null;
 
   // Initialize map layers
-  map.on('load', () => {
+  map.on("load", () => {
     // Add flight paths source
-    map.addSource('flight-paths', {
-      type: 'geojson',
+    map.addSource("flight-paths", {
+      type: "geojson",
       data: {
-        type: 'FeatureCollection',
-        features: []
-      }
+        type: "FeatureCollection",
+        features: [],
+      },
     });
 
     // Add flight paths layer
     map.addLayer({
-      id: 'flight-paths-layer',
-      type: 'line',
-      source: 'flight-paths',
+      id: "flight-paths-layer",
+      type: "line",
+      source: "flight-paths",
       layout: {
-        'line-join': 'round',
-        'line-cap': 'round'
+        "line-join": "round",
+        "line-cap": "round",
       },
       paint: {
-        'line-color': ['get', 'color'],
-        'line-width': 2,
-        'line-opacity': 0.6
-      }
+        "line-color": ["get", "color"],
+        "line-width": 2,
+        "line-opacity": 0.6,
+      },
     });
 
     // Add restricted zones (mock data for demo)
-    map.addSource('restricted-zones', {
-      type: 'geojson',
+    map.addSource("restricted-zones", {
+      type: "geojson",
       data: {
-        type: 'FeatureCollection',
+        type: "FeatureCollection",
         features: [
           {
-            type: 'Feature',
+            type: "Feature",
             geometry: {
-              type: 'Polygon',
-              coordinates: [[
-                [-122.43, 37.78],
-                [-122.41, 37.78],
-                [-122.41, 37.76],
-                [-122.43, 37.76],
-                [-122.43, 37.78]
-              ]]
+              type: "Polygon",
+              coordinates: [
+                [
+                  [-122.43, 37.78],
+                  [-122.41, 37.78],
+                  [-122.41, 37.76],
+                  [-122.43, 37.76],
+                  [-122.43, 37.78],
+                ],
+              ],
             },
             properties: {
-              name: 'No-Fly Zone'
-            }
-          }
-        ]
-      }
+              name: "No-Fly Zone",
+            },
+          },
+        ],
+      },
     });
 
     map.addLayer({
-      id: 'restricted-zones-layer',
-      type: 'fill',
-      source: 'restricted-zones',
+      id: "restricted-zones-layer",
+      type: "fill",
+      source: "restricted-zones",
       paint: {
-        'fill-color': '#ff0000',
-        'fill-opacity': 0.2
-      }
+        "fill-color": "#ff0000",
+        "fill-opacity": 0.2,
+      },
     });
 
     map.addLayer({
-      id: 'restricted-zones-outline',
-      type: 'line',
-      source: 'restricted-zones',
+      id: "restricted-zones-outline",
+      type: "line",
+      source: "restricted-zones",
       paint: {
-        'line-color': '#ff0000',
-        'line-width': 2,
-        'line-dasharray': [2, 2]
-      }
+        "line-color": "#ff0000",
+        "line-width": 2,
+        "line-dasharray": [2, 2],
+      },
     });
   });
 
   function createDroneMarkerElement(drone: DroneData): HTMLElement {
-    const el = document.createElement('div');
-    el.className = 'drone-marker';
-    el.style.width = '24px';
-    el.style.height = '24px';
-    el.style.position = 'relative';
-    el.style.cursor = 'pointer';
+    const el = document.createElement("div");
+    el.className = "drone-marker";
+    el.style.width = "24px";
+    el.style.height = "24px";
+    el.style.position = "relative";
+    el.style.cursor = "pointer";
 
     const isAllowed = isDroneAllowed(drone.registration);
-    const color = isAllowed ? '#10b981' : '#ef4444'; // emerald-500 or red-500
+    const color = isAllowed ? "#10b981" : "#ef4444"; // emerald-500 or red-500
 
     // Create drone icon with yaw rotation
     el.innerHTML = `
@@ -146,37 +153,40 @@ export function createMapboxMap(container: string | HTMLElement): MapboxMapManag
 
   const updateDroneMarker = (drone: DroneData) => {
     const existingMarker = droneMarkers.get(drone.id);
-    
+
     if (existingMarker) {
       // Update position and rotation
       existingMarker.setLngLat([drone.longitude, drone.latitude]);
       const element = existingMarker.getElement();
-      const iconElement = element.querySelector('div > div');
+      const iconElement = element.querySelector("div > div");
       if (iconElement) {
-        (iconElement as HTMLElement).style.transform = `rotate(${drone.yaw}deg)`;
+        (iconElement as HTMLElement).style.transform =
+          `rotate(${drone.yaw}deg)`;
       }
     } else {
       // Create new marker
       const el = createDroneMarkerElement(drone);
-      
+
       const marker = new mapboxgl.Marker(el)
         .setLngLat([drone.longitude, drone.latitude])
         .addTo(map);
 
       // Add click handler
-      el.addEventListener('click', (e) => {
+      el.addEventListener("click", (e) => {
         e.stopPropagation();
         showDronePopup(drone);
         // Dispatch custom event for drone selection
-        window.dispatchEvent(new CustomEvent('droneSelected', { detail: drone.id }));
+        window.dispatchEvent(
+          new CustomEvent("droneSelected", { detail: drone.id }),
+        );
       });
 
       // Add hover handlers
-      el.addEventListener('mouseenter', () => {
+      el.addEventListener("mouseenter", () => {
         showDronePopup(drone);
       });
 
-      el.addEventListener('mouseleave', () => {
+      el.addEventListener("mouseleave", () => {
         setTimeout(() => {
           if (activePopup) {
             activePopup.remove();
@@ -190,41 +200,43 @@ export function createMapboxMap(container: string | HTMLElement): MapboxMapManag
   };
 
   const updateFlightPath = (droneId: string, path: FlightPathPoint[]) => {
-    if (path.length < 52) return;
+    if (path.length < 2) return;
 
-    const drone = Array.from(droneMarkers.keys()).find(id => id === droneId);
+    const drone = Array.from(droneMarkers.keys()).find((id) => id === droneId);
     if (!drone) return;
 
-    const coordinates = path.map(point => [point.longitude, point.latitude]);
-    const isAllowed = isDroneAllowed(path[0]?.droneId || '');
-    
+    const coordinates = path.map((point) => [point.longitude, point.latitude]);
+    const isAllowed = isDroneAllowed(path[0]?.droneId || "");
+
     const feature = {
-      type: 'Feature' as const,
+      type: "Feature" as const,
       geometry: {
-        type: 'LineString' as const,
-        coordinates
+        type: "LineString" as const,
+        coordinates,
       },
       properties: {
         droneId,
-        color: isAllowed ? '#10b981' : '#ef4444'
-      }
+        color: isAllowed ? "#10b981" : "#ef4444",
+      },
     };
 
     // Get current flight paths data
-    const source = map.getSource('flight-paths') as mapboxgl.GeoJSONSource;
+    const source = map.getSource("flight-paths") as mapboxgl.GeoJSONSource;
     if (source) {
       const currentData = source._data as any;
       const features = currentData.features || [];
-      
+
       // Remove existing path for this drone
-      const filteredFeatures = features.filter((f: any) => f.properties.droneId !== droneId);
-      
+      const filteredFeatures = features.filter(
+        (f: any) => f.properties.droneId !== droneId,
+      );
+
       // Add updated path
       filteredFeatures.push(feature);
-      
+
       source.setData({
-        type: 'FeatureCollection',
-        features: filteredFeatures
+        type: "FeatureCollection",
+        features: filteredFeatures,
       });
     }
   };
@@ -233,15 +245,15 @@ export function createMapboxMap(container: string | HTMLElement): MapboxMapManag
     map.flyTo({
       center: [drone.longitude, drone.latitude],
       zoom: 15,
-      duration: 1000
+      duration: 1000,
     });
   };
 
   const setMapStyle = (style: string) => {
     const styleMap: Record<string, string> = {
-      satellite: 'mapbox://styles/mapbox/satellite-v9',
-      streets: 'mapbox://styles/mapbox/streets-v11',
-      dark: 'mapbox://styles/mapbox/dark-v10'
+      satellite: "mapbox://styles/mapbox/satellite-v9",
+      streets: "mapbox://styles/mapbox/streets-v11",
+      dark: "mapbox://styles/mapbox/dark-v10",
     };
 
     if (styleMap[style]) {
@@ -251,7 +263,11 @@ export function createMapboxMap(container: string | HTMLElement): MapboxMapManag
 
   const toggleLayer = (layerId: string, visible: boolean) => {
     if (map.getLayer(layerId)) {
-      map.setLayoutProperty(layerId, 'visibility', visible ? 'visible' : 'none');
+      map.setLayoutProperty(
+        layerId,
+        "visibility",
+        visible ? "visible" : "none",
+      );
     }
   };
 
@@ -261,21 +277,22 @@ export function createMapboxMap(container: string | HTMLElement): MapboxMapManag
     }
 
     const isAllowed = isDroneAllowed(drone.registration);
-    const statusColor = isAllowed ? '#10b981' : '#ef4444';
-    const statusText = isAllowed ? 'ALLOWED' : 'RESTRICTED';
+    const statusColor = isAllowed ? "#10b981" : "#ef4444";
+    const statusText = isAllowed ? "ALLOWED" : "RESTRICTED";
 
     const hours = Math.floor(drone.flightTime / 3600);
     const minutes = Math.floor((drone.flightTime % 3600) / 60);
     const seconds = drone.flightTime % 60;
-    const flightTimeFormatted = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    const flightTimeFormatted = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 
     activePopup = new mapboxgl.Popup({
       closeButton: false,
       closeOnClick: false,
-      offset: 25
+      offset: 25,
     })
-    .setLngLat([drone.longitude, drone.latitude])
-    .setHTML(`
+      .setLngLat([drone.longitude, drone.latitude])
+      .setHTML(
+        `
       <div class="text-sm">
         <div class="flex items-center justify-between mb-2">
           <span class="font-medium text-foreground">${drone.registration}</span>
@@ -290,8 +307,9 @@ export function createMapboxMap(container: string | HTMLElement): MapboxMapManag
           <div>Yaw: ${Math.round(drone.yaw)}°</div>
         </div>
       </div>
-    `)
-    .addTo(map);
+    `,
+      )
+      .addTo(map);
   };
 
   const hideDronePopup = () => {
@@ -303,15 +321,15 @@ export function createMapboxMap(container: string | HTMLElement): MapboxMapManag
 
   const destroy = () => {
     // Clean up markers
-    droneMarkers.forEach(marker => marker.remove());
+    droneMarkers.forEach((marker) => marker.remove());
     droneMarkers.clear();
-    
+
     // Remove popup
     if (activePopup) {
       activePopup.remove();
       activePopup = null;
     }
-    
+
     // Remove map
     map.remove();
   };
@@ -325,6 +343,6 @@ export function createMapboxMap(container: string | HTMLElement): MapboxMapManag
     toggleLayer,
     showDronePopup,
     hideDronePopup,
-    destroy
+    destroy,
   };
 }
