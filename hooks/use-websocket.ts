@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { DroneUpdate, FlightPathUpdate } from '@shared/schema';
 
 interface WebSocketHookReturn {
   isConnected: boolean;
