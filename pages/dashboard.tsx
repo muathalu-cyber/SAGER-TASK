@@ -156,7 +156,7 @@ export default function Dashboard() {
 
         <main className="flex-1 bg-muted relative overflow-hidden">
         <MapboxMap 
-          drones={droneStats}
+          drones={allDronesr}
           flightPaths={flightPathsMap}
           selectedDroneId={selectedDroneId}
           onDroneSelected={handleDroneSelected}
