@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { createMapboxMap, type MapboxMapManager } from '../lib/mapbox';
 import type { DroneData, MapSettings } from '../types/drone';
-import { Button } from '../components/ui/button';
-import { Card } from '../components/ui/card';
-import { Checkbox } from '../components/ui/checkbox';
+import { Button } from './ui/button';
+import { Card } from './ui/card';
+import { Checkbox } from './ui/checkbox';
 import { Maximize2, Navigation } from 'lucide-react';
 import React from 'react';
 
