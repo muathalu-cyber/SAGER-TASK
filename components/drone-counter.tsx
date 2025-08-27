@@ -1,5 +1,6 @@
 import { AlertTriangle } from 'lucide-react';
-import { Card } from '@/components/ui/card';
+import { Card } from '../components/ui/card';
+import React from 'react';
 
 interface DroneCounterProps {
   restrictedCount: number;

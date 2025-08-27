@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Search, Check, X, Plane } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card } from '@/components/ui/card';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { DroneData, DroneFilter, isDroneAllowed, formatFlightTime, formatAltitude } from '@/types/drone';
+import { Button } from '../components/ui/button';
+import { Input } from '../components/ui/input';
+import { Card } from '../components/ui/card';
+import { ScrollArea } from "../components/ui/scroll-area";
+import { type DroneData, type DroneFilter, isDroneAllowed, formatFlightTime, formatAltitude } from '../types/drone';
 
 interface DroneListSidebarProps {
   drones: DroneData[];

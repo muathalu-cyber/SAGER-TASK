@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Maximize2, Navigation, Wifi, WifiOff } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '../components/ui/button';
+import { Badge } from '../components/ui/badge';
+import React from 'react';
 
 interface TopBarProps {
   isConnected: boolean;

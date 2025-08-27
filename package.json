@@ -26,6 +26,7 @@
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "wouter": "^3.0.0",
+    "ws": "^8.18.3",
     "zustand": "^4.0.0"
   },
   "devDependencies": {

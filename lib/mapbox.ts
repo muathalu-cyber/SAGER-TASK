@@ -1,10 +1,9 @@
 import mapboxgl from 'mapbox-gl';
-import { DroneData, FlightPathPoint, isDroneAllowed } from '@/types/drone';
+import { type DroneData, type FlightPathPoint, isDroneAllowed } from '../types/drone';
 
 // Use environment variable or fallback to demo token
-const MAPBOX_ACCESS_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN || 'pk.eyJ1IjoiZGVtbyIsImEiOiJjbGVtb2tlcW4wcGcwM3BxbzVpZ2xmcnY5In0.demo';
 
-mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
+mapboxgl.accessToken = "pk.eyJ1IjoibXluZXd3MDAiLCJhIjoiY21lc3V5Nnp0MDZndjJqczRkdjJ2NGlpOCJ9.wF4YelXlLVj7Ead9dGf2rQ";
 
 export interface MapboxMapManager {
   map: mapboxgl.Map;
@@ -191,7 +190,7 @@ export function createMapboxMap(container: string | HTMLElement): MapboxMapManag
   };
 
   const updateFlightPath = (droneId: string, path: FlightPathPoint[]) => {
-    if (path.length < 2) return;
+    if (path.length < 52) return;
 
     const drone = Array.from(droneMarkers.keys()).find(id => id === droneId);
     if (!drone) return;
