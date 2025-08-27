@@ -160,6 +160,7 @@ export default function Dashboard() {
           flightPaths={flightPathsMap}
           selectedDroneId={selectedDroneId}
           onDroneSelected={handleDroneSelected}
+          
         />
         </main>
 
