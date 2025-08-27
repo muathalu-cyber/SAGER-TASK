@@ -53,14 +53,7 @@ export function MapboxMap({ drones, flightPaths, selectedDroneId, onDroneSelecte
     });
   }, [drones]);
 
-  // Update flight paths
-  useEffect(() => {
-    if (!mapRef.current) return;
 
-    flightPaths?.map((path, droneId) => {
-      mapRef.current!.updateFlightPath(droneId, path);
-    });
-  }, [flightPaths]);
 
   // Center on selected drone
   useEffect(() => {
