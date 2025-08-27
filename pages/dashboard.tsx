@@ -154,16 +154,14 @@ export default function Dashboard() {
           </div>
         </header>
 
-        <main className="flex-1 bg-muted relative overflow-hidden h-[100vh]">
       
-        />
-        </main>
-  <MapboxMap 
+     <MapboxMap 
           drones={drones}
           flightPaths={flightPaths}
           selectedDroneId={selectedDroneId}
           onDroneSelected={handleDroneSelected}
           
+        />
         <aside className="absolute bottom-6 right-6 bg-destructive text-destructive-foreground px-6 py-4 rounded-xl shadow-lg border border-destructive/20">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
