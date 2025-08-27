@@ -154,43 +154,7 @@ export default function Dashboard() {
         </header>
 
         <main className="flex-1 bg-muted relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-slate-800 dark:to-slate-900">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center p-8 bg-card/80 backdrop-blur-sm rounded-2xl shadow-lg border border-border">
-                <div className="text-6xl mb-4">🗺️</div>
-                <h3 className="text-xl font-bold mb-2 text-foreground">Live Map View</h3>
-                <p className="text-muted-foreground">
-                  Monitoring <span className="font-semibold text-primary">{allDrones.length}</span> drones
-                  {selectedDroneId && (
-                    <span className="block mt-1 text-secondary font-medium">
-                      Selected: {allDrones.find((d) => d.id === selectedDroneId)?.name}
-                    </span>
-                  )}
-                </p>
-              </div>
-            </div>
-
-            {allDrones.slice(0, 5).map((drone, index) => (
-              <button
-                key={drone.id}
-                onClick={() => handleDroneSelected(drone.id)}
-                className={`absolute w-12 h-12 rounded-full border-3 border-white shadow-lg transition-all hover:scale-110 hover:shadow-xl ${
-                  drone.status === "active"
-                    ? "bg-green-500 hover:bg-green-600"
-                    : drone.status === "restricted"
-                      ? "bg-red-500 hover:bg-red-600"
-                      : "bg-gray-500 hover:bg-gray-600"
-                } ${selectedDroneId === drone.id ? "ring-4 ring-secondary scale-110" : ""}`}
-                style={{
-                  left: `${20 + index * 15}%`,
-                  top: `${30 + index * 10}%`,
-                }}
-                title={`${drone.name} - ${drone.status}`}
-              >
-                <span className="text-xl">🚁</span>
-              </button>
-            ))}
-          </div>
+        
         </main>
 
         <aside className="absolute bottom-6 right-6 bg-destructive text-destructive-foreground px-6 py-4 rounded-xl shadow-lg border border-destructive/20">
