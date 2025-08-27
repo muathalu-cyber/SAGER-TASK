@@ -154,7 +154,7 @@ export default function Dashboard() {
           </div>
         </header>
 
-        <main >
+        <main className="flex-1 bg-muted relative overflow-hidden h-full">
         <MapboxMap 
           drones={drones}
           flightPaths={flightPaths}
