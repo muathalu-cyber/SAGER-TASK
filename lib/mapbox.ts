@@ -3,7 +3,6 @@ import { DroneData, FlightPathPoint, isDroneAllowed } from "@/types/drone";
 
 // Use environment variable or fallback to demo token
 const MAPBOX_ACCESS_TOKEN =
-  import.meta.env.VITE_MAPBOX_ACCESS_TOKEN ||
   "pk.eyJ1IjoibXluZXd3MDAiLCJhIjoiY21lc3V5Nnp0MDZndjJqczRkdjJ2NGlpOCJ9.wF4YelXlLVj7Ead9dGf2rQ";
 
 mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
